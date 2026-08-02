@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sahaj Finance · Voice Collections Agent</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">◈</span>
+      <div>
+        <div class="brand-name">Sahaj Finance</div>
+        <div class="brand-sub">AI Collections Agent · powered by Sarvam</div>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <span id="status-dot" class="dot dot-idle"></span>
+      <span id="status-text">Idle</span>
+    </div>
+  </header>
+
+  <main class="layout">
+    <!-- Conversation -->
+    <section class="panel conversation">
+      <div class="controls">
+        <label>
+          Borrower
+          <select id="borrower"></select>
+        </label>
+      </div>
+
+      <div id="transcript" class="transcript">
+        <div class="hint">Pick a borrower and press <b>Talk</b> to start a live call.
+          The agent greets you, then just speak naturally — real-time streaming, you can
+          even interrupt. Hindi, Tamil, English or a mix all work.</div>
+      </div>
+
+      <div class="composer">
+        <button id="mic" class="mic">
+          <span class="mic-icon">🎙️</span>
+          <span id="mic-label">Talk</span>
+        </button>
+        <div class="text-fallback">
+          <input id="text-input" type="text" placeholder="Type what the borrower says..." />
+          <button id="send" class="send">Send</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Live CRM + ROI -->
+    <aside class="panel sidebar">
+      <div class="metrics">
+        <div class="tile">
+          <div class="tile-value" id="m-calls">0</div>
+          <div class="tile-label">Calls handled</div>
+        </div>
+        <div class="tile">
+          <div class="tile-value" id="m-ptp">0</div>
+          <div class="tile-label">Promise-to-pay</div>
+        </div>
+        <div class="tile">
+          <div class="tile-value" id="m-esc">0</div>
+          <div class="tile-label">Escalated</div>
+        </div>
+        <div class="tile tile-accent">
+          <div class="tile-value" id="m-savings">₹0</div>
+          <div class="tile-label">Cost saved (₹5 vs ₹80/call)</div>
+        </div>
+      </div>
+
+      <div class="crm-head">Live CRM · dispositions</div>
+      <div id="crm" class="crm">
+        <div class="hint small">Call outcomes will appear here in real time.</div>
+      </div>
+    </aside>
+  </main>
+
+  <footer class="foot">
+    Sarvam STT (Saaras) → LLM (sarvam-m) → TTS (Bulbul) · agentic workflow via n8n
+  </footer>
+
+  <script src="config.js"></script>
+  <script type="module" src="app.js?v=5"></script>
+</body>
+</html>
