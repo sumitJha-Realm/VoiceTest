@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="620" viewBox="0 0 1040 620" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#64748b"/>
+    </marker>
+    <style>
+      .box { fill:#ffffff; stroke:#e2e8f0; stroke-width:1.5; rx:14; }
+      .title { font-size:14px; font-weight:700; fill:#0f172a; }
+      .sub { font-size:11px; fill:#64748b; }
+      .lbl { font-size:11px; fill:#475569; }
+      .flow { stroke:#94a3b8; stroke-width:1.6; fill:none; marker-end:url(#arrow); }
+      .accent { fill:#0f766e; }
+      .band { font-size:12px; font-weight:600; fill:#0f766e; letter-spacing:.04em; }
+    </style>
+  </defs>
+
+  <rect width="1040" height="620" fill="#f8fafc"/>
+  <text x="40" y="46" font-size="20" font-weight="700" fill="#0f172a">Sahaj Finance · Multilingual Voice Collections Agent</text>
+  <text x="40" y="68" class="sub">Voice bot (front-end) + agentic workflow (back-end) · powered by Sarvam AI</text>
+
+  <!-- USER -->
+  <text x="40" y="120" class="band">BORROWER</text>
+  <rect x="40" y="132" width="180" height="96" rx="14" class="box"/>
+  <text x="60" y="166" class="title">📞 Borrower</text>
+  <text x="60" y="188" class="sub">Hindi · Tamil · English</text>
+  <text x="60" y="206" class="sub">Hinglish / Tanglish</text>
+
+  <!-- FRONTEND -->
+  <text x="300" y="120" class="band">VOICE FRONT-END (Vercel)</text>
+  <rect x="300" y="132" width="220" height="96" rx="14" class="box"/>
+  <text x="320" y="166" class="title">🎙️ Browser Voice UI</text>
+  <text x="320" y="188" class="sub">Mic capture · plays TTS audio</text>
+  <text x="320" y="206" class="sub">Live CRM + ROI panel</text>
+
+  <!-- VOICE SERVER -->
+  <text x="600" y="120" class="band">VOICE SERVER (HF Spaces / Fly.io)</text>
+  <rect x="600" y="132" width="400" height="240" rx="14" class="box"/>
+  <text x="620" y="164" class="title">FastAPI Orchestrator</text>
+
+  <rect x="620" y="182" width="170" height="60" rx="10" fill="#ecfdf5" stroke="#a7f3d0"/>
+  <text x="636" y="206" class="title accent">Sarvam STT</text>
+  <text x="636" y="226" class="sub">Saaras · speech→text</text>
+
+  <rect x="810" y="182" width="170" height="60" rx="10" fill="#ecfdf5" stroke="#a7f3d0"/>
+  <text x="826" y="206" class="title accent">Sarvam LLM</text>
+  <text x="826" y="226" class="sub">sarvam-m · reasoning</text>
+
+  <rect x="620" y="256" width="170" height="60" rx="10" fill="#ecfdf5" stroke="#a7f3d0"/>
+  <text x="636" y="280" class="title accent">Sarvam TTS</text>
+  <text x="636" y="300" class="sub">Bulbul · text→speech</text>
+
+  <rect x="810" y="256" width="170" height="60" rx="10" fill="#f1f5f9" stroke="#cbd5e1"/>
+  <text x="826" y="280" class="title">Collections Brain</text>
+  <text x="826" y="300" class="sub">objections · compliance</text>
+
+  <text x="620" y="348" class="sub">Emits structured disposition JSON per call →</text>
+
+  <!-- AGENTIC BACKEND -->
+  <text x="300" y="300" class="band">AGENTIC WORKFLOW (n8n)</text>
+  <rect x="300" y="312" width="220" height="60" rx="12" class="box"/>
+  <text x="320" y="338" class="title">⚙️ n8n Webhook</text>
+  <text x="320" y="358" class="sub">route by outcome</text>
+
+  <!-- DOWNSTREAM -->
+  <text x="40" y="440" class="band">DOWNSTREAM SYSTEMS</text>
+  <rect x="40" y="452" width="230" height="56" rx="12" class="box"/>
+  <text x="58" y="478" class="title">📊 CRM / LMS (Google Sheet)</text>
+  <text x="58" y="497" class="sub">promise-to-pay logged</text>
+
+  <rect x="300" y="452" width="220" height="56" rx="12" class="box"/>
+  <text x="318" y="478" class="title">⏰ Schedule Follow-up</text>
+  <text x="318" y="497" class="sub">T-1 reminder</text>
+
+  <rect x="560" y="452" width="220" height="56" rx="12" class="box"/>
+  <text x="578" y="478" class="title">🚨 Escalate to Human</text>
+  <text x="578" y="497" class="sub">dispute / distress</text>
+
+  <!-- FLOWS -->
+  <path class="flow" d="M220,180 H300"/>
+  <path class="flow" d="M520,180 H600"/>
+  <path class="flow" d="M600,300 H520 V228 H600" transform="translate(0,0)"/>
+  <text x="530" y="262" class="lbl">audio ↺</text>
+
+  <path class="flow" d="M700,372 V400 H410 V372"/>
+  <text x="470" y="392" class="lbl">disposition JSON</text>
+
+  <path class="flow" d="M360,372 V452"/>
+  <path class="flow" d="M410,372 V430 H155 V452"/>
+  <path class="flow" d="M470,372 V430 H670 V452"/>
+
+  <text x="40" y="560" class="sub">Data flow: borrower speaks → STT → LLM reasons &amp; replies → TTS speaks back (loop). On call end, a</text>
+  <text x="40" y="578" class="sub">structured disposition triggers n8n, which updates the CRM, schedules reminders, or escalates.</text>
+  <text x="40" y="600" class="sub" fill="#0f766e">Sarvam APIs used: Speech-to-Text (Saaras) · Chat Completions (sarvam-m) · Text-to-Speech (Bulbul)</text>
+</svg>

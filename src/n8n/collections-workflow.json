@@ -1,0 +1,131 @@
+{
+  "name": "Sahaj Finance — Collections Post-Call Workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "collections-disposition",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "webhook-trigger",
+      "name": "Call Ended (Webhook)",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [220, 400],
+      "webhookId": "collections-disposition"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": { "caseSensitive": true },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.body.escalate }}",
+                    "rightValue": true,
+                    "operator": { "type": "boolean", "operation": "true" }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "outputKey": "Escalate"
+            },
+            {
+              "conditions": {
+                "options": { "caseSensitive": true },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.body.disposition }}",
+                    "rightValue": "promise_to_pay",
+                    "operator": { "type": "string", "operation": "equals" }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "outputKey": "Promise to Pay"
+            }
+          ]
+        },
+        "options": { "fallbackOutput": "extra" }
+      },
+      "id": "route",
+      "name": "Route by Outcome",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [480, 400]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": { "__rl": true, "mode": "id", "value": "YOUR_GOOGLE_SHEET_ID" },
+        "sheetName": { "__rl": true, "mode": "list", "value": "Collections" },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Timestamp": "={{ $json.body.timestamp }}",
+            "Loan ID": "={{ $json.body.loan_id }}",
+            "Name": "={{ $json.body.name }}",
+            "Language": "={{ $json.body.language }}",
+            "Disposition": "={{ $json.body.disposition }}",
+            "Promise Date": "={{ $json.body.promise_to_pay_date }}",
+            "Sentiment": "={{ $json.body.sentiment }}"
+          }
+        }
+      },
+      "id": "sheet-ptp",
+      "name": "Log Promise-to-Pay → CRM",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [760, 300],
+      "notes": "Connect your Google account and paste the Sheet ID."
+    },
+    {
+      "parameters": {
+        "amount": 1,
+        "unit": "days"
+      },
+      "id": "schedule-followup",
+      "name": "Schedule Reminder (T-1)",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [980, 300]
+    },
+    {
+      "parameters": {},
+      "id": "notify-human",
+      "name": "Notify Human Agent (Slack/Email)",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [760, 480],
+      "notes": "Swap for a Slack/Email/WhatsApp node to alert the collections desk about escalations."
+    },
+    {
+      "parameters": {},
+      "id": "log-other",
+      "name": "Log Other Outcome",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [760, 620]
+    }
+  ],
+  "connections": {
+    "Call Ended (Webhook)": {
+      "main": [[{ "node": "Route by Outcome", "type": "main", "index": 0 }]]
+    },
+    "Route by Outcome": {
+      "main": [
+        [{ "node": "Notify Human Agent (Slack/Email)", "type": "main", "index": 0 }],
+        [{ "node": "Log Promise-to-Pay → CRM", "type": "main", "index": 0 }],
+        [{ "node": "Log Other Outcome", "type": "main", "index": 0 }]
+      ]
+    },
+    "Log Promise-to-Pay → CRM": {
+      "main": [[{ "node": "Schedule Reminder (T-1)", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": { "executionOrder": "v1" },
+  "pinData": {}
+}

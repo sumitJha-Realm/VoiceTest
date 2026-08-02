@@ -1,0 +1,14 @@
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+httpx==0.28.1
+python-multipart==0.0.20
+python-dotenv==1.0.1
+pydantic==2.10.4
+gspread==6.1.4
+google-auth==2.37.0
+# Allows `str | None` annotations on Python 3.9.
+eval_type_backport==0.2.2
+
+# Optional: experimental streaming server (bot.py). Not required for the demo —
+# main.py is the supported turn-based server. Install manually if you want to try it:
+# pipecat-ai[sarvam,webrtc,silero,openai]

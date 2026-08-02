@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+service-account.json
+
+# Node / Vercel
+node_modules/
+.vercel/
+
+# OS
+.DS_Store
